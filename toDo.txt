@@ -1,0 +1,24 @@
+create next.config.js file(if not exists) in the root directory and copy the code:
+
+module.exports = {
+    reactStrictMode: true,
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/,
+            use: [{loader: '@svgr/webpack', options: {icon: true}}],
+
+        })
+        return config
+    }
+}
+
+Now create custom.d.ts file in app or src directory:
+
+declare module "@/public/svg/*.svg" {
+	import React from "react";
+	const Component: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+
+	export default Component;
+}
+
+##I put my svgs in public folder. that's why: "@/public/svg/*.svg"
